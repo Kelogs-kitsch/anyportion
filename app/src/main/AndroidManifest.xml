@@ -13,6 +13,30 @@
         android:theme="@style/Theme.Enefortion"
         tools:targetApi="31">
         <activity
+            android:name=".activity.compatingelectricityandmagnetism.ElectromagnetismActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.compatingelectricityandmagnetism.ElectricityAndCircuitsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.compatingelectricityandmagnetism.LessonActivity3"
+            android:exported="false" />
+        <activity
+            android:name=".activity.describingdifferentformsofenergy.SoundAndMatterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.describingdifferentformsofenergy.LightAndMatterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.describingdifferentformsofenergy.HeatAndMatterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.investigatingmotion.SpeedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.describingdifferentformsofenergy.LessonActivity2"
+            android:exported="false" />
+        <activity
             android:name=".activity.investigatingmotion.DistanceActivity"
             android:exported="false" />
         <activity

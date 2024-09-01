@@ -1,4 +1,4 @@
-package com.keylogs.enefortion.fragments.motion.distance;
+package com.keylogs.enefortion.fragments.motion.Speed;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.keylogs.enefortion.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Page5Fragment#newInstance} factory method to
+ * Use the {@link SpeedPage1Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Page5Fragment extends Fragment {
+public class SpeedPage1Fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class Page5Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Page5Fragment() {
+    public SpeedPage1Fragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class Page5Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Page5Fragment.
+     * @return A new instance of fragment SpeedPage1Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Page5Fragment newInstance(String param1, String param2) {
-        Page5Fragment fragment = new Page5Fragment();
+    public static SpeedPage1Fragment newInstance(String param1, String param2) {
+        SpeedPage1Fragment fragment = new SpeedPage1Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class Page5Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page5, container, false);
+        return inflater.inflate(R.layout.fragment_speed_page1, container, false);
     }
 }
