@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.keylogs.enefortion.R;
-import com.keylogs.enefortion.activity.LessonActivity1;
+import com.keylogs.enefortion.activity.investigatingmotion.LessonActivity1;
 
 /**
  * A simple {@link Fragment} subclass.

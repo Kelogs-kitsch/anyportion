@@ -1,4 +1,4 @@
-package com.keylogs.enefortion.activity;
+package com.keylogs.enefortion.activity.investigatingmotion;
 
 import android.os.Bundle;
 
@@ -9,18 +9,17 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.keylogs.enefortion.R;
-import com.keylogs.enefortion.fragments.motion.Page1Fragment;
-import com.keylogs.enefortion.fragments.motion.Page2Fragment;
-import com.keylogs.enefortion.fragments.motion.Page3Fragment;
-import com.keylogs.enefortion.fragments.motion.Page4Fragment;
-import com.keylogs.enefortion.fragments.motion.Page5Fragment;
+import com.keylogs.enefortion.fragments.motion.distance.DistancePage1Fragment;
+import com.keylogs.enefortion.fragments.motion.distance.DistancePage2Fragment;
+import com.keylogs.enefortion.fragments.motion.distance.DistancePage3Fragment;
+import com.keylogs.enefortion.fragments.motion.distance.Page4Fragment;
 
-public class ScreenSlideActivity extends FragmentActivity {
+public class DistanceActivity extends FragmentActivity {
 
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 3;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -73,21 +72,21 @@ public class ScreenSlideActivity extends FragmentActivity {
         public Fragment createFragment(int position) {
             switch (position) {
                 case 0:
-                    return Page1Fragment.newInstance("param1", "param2");
+                    return DistancePage1Fragment.newInstance("param1", "param2");
                 case 1:
-                    return Page2Fragment.newInstance("param1", "param2");
+                    return DistancePage2Fragment.newInstance("param1", "param2");
                     // Return the second fragment here
                 case 2:
-                    return Page3Fragment.newInstance("param1", "param2");
+                    return DistancePage3Fragment.newInstance("param1", "param2");
                     // Return the third fragment here
                 case 3:
                     return Page4Fragment.newInstance("param1", "param2");
                     // Return the fourth fragment here
-                case 4:
-                    return Page5Fragment.newInstance("param1", "param2");
-                    // Return the fifth fragment here
+//                case 4:
+//                    return Page5Fragment.newInstance("param1", "param2");
+//                    // Return the fifth fragment here
                 default:
-                    return Page1Fragment.newInstance("param1", "param2");
+                    return DistancePage1Fragment.newInstance("param1", "param2");
             }
         }
 

@@ -1,4 +1,4 @@
-package com.keylogs.enefortion.fragments.motion;
+package com.keylogs.enefortion.fragments.motion.distance;
 
 import android.os.Bundle;
 
@@ -61,6 +61,6 @@ public class Page4Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page4, container, false);
+        return inflater.inflate(R.layout.fragment_distance_page4, container, false);
     }
 }

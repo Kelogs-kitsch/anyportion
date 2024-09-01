@@ -1,4 +1,4 @@
-package com.keylogs.enefortion.fragments.motion;
+package com.keylogs.enefortion.fragments.motion.distance;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.keylogs.enefortion.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Page3Fragment#newInstance} factory method to
+ * Use the {@link DistancePage3Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Page3Fragment extends Fragment {
+public class DistancePage3Fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class Page3Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Page3Fragment() {
+    public DistancePage3Fragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class Page3Fragment extends Fragment {
      * @return A new instance of fragment Page3Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Page3Fragment newInstance(String param1, String param2) {
-        Page3Fragment fragment = new Page3Fragment();
+    public static DistancePage3Fragment newInstance(String param1, String param2) {
+        DistancePage3Fragment fragment = new DistancePage3Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class Page3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page3, container, false);
+        return inflater.inflate(R.layout.fragment_distance_page3, container, false);
     }
 }

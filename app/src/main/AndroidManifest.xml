@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Enefortion"
         tools:targetApi="31">
         <activity
-            android:name=".activity.ScreenSlideActivity"
+            android:name=".activity.investigatingmotion.DistanceActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LessonActivity1Start"
+            android:name=".activity.investigatingmotion.DistanceActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LessonActivity1"
+            android:name=".activity.investigatingmotion.LessonActivity1"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
