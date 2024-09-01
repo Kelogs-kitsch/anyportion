@@ -3,10 +3,13 @@ package com.keylogs.enefortion.fragments.motion;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.keylogs.enefortion.R;
 
@@ -61,6 +64,24 @@ public class Page2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page2, container, false);
+        View view = inflater.inflate(R.layout.fragment_page2, container, false);
+
+        Button nextButton = view.findViewById(R.id.nextButton2);
+        ViewPager2 viewPager = getActivity().findViewById(R.id.main);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentItem = viewPager.getCurrentItem();
+                if (currentItem < 4) { // Check to avoid out of bounds
+                    viewPager.setCurrentItem(currentItem + 1);
+                } else {
+                    // Optionally handle the case when on the last page
+                    Toast.makeText(getActivity(), "You are on the last page", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        return view;
     }
+
 }

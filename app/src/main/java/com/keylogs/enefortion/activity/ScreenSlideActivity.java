@@ -2,19 +2,14 @@ package com.keylogs.enefortion.activity;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.keylogs.enefortion.R;
-import com.keylogs.enefortion.fragments.ScreenSlidePage;
+import com.keylogs.enefortion.fragments.motion.Page1Fragment;
 import com.keylogs.enefortion.fragments.motion.Page2Fragment;
 import com.keylogs.enefortion.fragments.motion.Page3Fragment;
 import com.keylogs.enefortion.fragments.motion.Page4Fragment;
@@ -71,14 +66,14 @@ public class ScreenSlideActivity extends FragmentActivity {
         }
 
         @Override
-        public Fragment createFragment(int position) {
-            return new ScreenSlidePage();
-        }
+//        public Fragment createFragment(int position) {
+//            return new ScreenSlidePage();
+//        }
         @NonNull
-        public Fragment getItem(int position) {
+        public Fragment createFragment(int position) {
             switch (position) {
                 case 0:
-                    return ScreenSlidePage.newInstance("param1", "param2");
+                    return Page1Fragment.newInstance("param1", "param2");
                 case 1:
                     return Page2Fragment.newInstance("param1", "param2");
                     // Return the second fragment here
@@ -92,7 +87,7 @@ public class ScreenSlideActivity extends FragmentActivity {
                     return Page5Fragment.newInstance("param1", "param2");
                     // Return the fifth fragment here
                 default:
-                    return ScreenSlidePage.newInstance("param1", "param2");
+                    return Page1Fragment.newInstance("param1", "param2");
             }
         }
 
