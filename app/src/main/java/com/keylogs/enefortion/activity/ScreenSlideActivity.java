@@ -3,6 +3,7 @@ package com.keylogs.enefortion.activity;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -14,6 +15,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.keylogs.enefortion.R;
 import com.keylogs.enefortion.fragments.ScreenSlidePage;
+import com.keylogs.enefortion.fragments.motion.Page2Fragment;
+import com.keylogs.enefortion.fragments.motion.Page3Fragment;
+import com.keylogs.enefortion.fragments.motion.Page4Fragment;
+import com.keylogs.enefortion.fragments.motion.Page5Fragment;
 
 public class ScreenSlideActivity extends FragmentActivity {
 
@@ -68,6 +73,27 @@ public class ScreenSlideActivity extends FragmentActivity {
         @Override
         public Fragment createFragment(int position) {
             return new ScreenSlidePage();
+        }
+        @NonNull
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return ScreenSlidePage.newInstance("param1", "param2");
+                case 1:
+                    return Page2Fragment.newInstance("param1", "param2");
+                    // Return the second fragment here
+                case 2:
+                    return Page3Fragment.newInstance("param1", "param2");
+                    // Return the third fragment here
+                case 3:
+                    return Page4Fragment.newInstance("param1", "param2");
+                    // Return the fourth fragment here
+                case 4:
+                    return Page5Fragment.newInstance("param1", "param2");
+                    // Return the fifth fragment here
+                default:
+                    return ScreenSlidePage.newInstance("param1", "param2");
+            }
         }
 
         @Override
