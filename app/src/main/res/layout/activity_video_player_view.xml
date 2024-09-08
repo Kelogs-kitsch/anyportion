@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".VideoPlayerViewActivity">
+
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:played_color="@color/electricblue"
+        app:scrubber_color="@color/electricblue"
+        app:unplayed_color="@android:color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/baseline_arrow_back_white24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/rewindButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_replay_10_24"
+                app:layout_constraintBottom_toBottomOf="@+id/playPauseButton"
+                app:layout_constraintEnd_toStartOf="@+id/playPauseButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/playPauseButton" />
+
+            <ImageView
+                android:id="@+id/playPauseButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_pause_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/slowDownButton"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/fastForwardButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_forward_10_24"
+                app:layout_constraintBottom_toBottomOf="@+id/playPauseButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playPauseButton"
+                app:layout_constraintTop_toTopOf="@+id/playPauseButton" />
+
+            <ImageView
+                android:id="@+id/slowDownButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/baseline_slow_motion_video_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/fullScreenButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/baseline_fullscreen_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/exo_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/gotham_medium"
+                android:text="00:00"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+            <androidx.media3.ui.DefaultTimeBar
+                android:id="@+id/exo_progress_placeholder"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/fullScreenButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/gotham_medium"
+                android:textColor="@android:color/white"
+                android:text="/"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/exo_position"
+                app:layout_constraintTop_toTopOf="@+id/exo_position" />
+
+            <TextView
+                android:id="@+id/exo_duration2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/gotham_medium"
+                android:text="00:00"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/exo_position"
+                app:layout_constraintStart_toEndOf="@+id/textView10"
+                app:layout_constraintTop_toTopOf="@+id/exo_position" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.media3.ui.PlayerView>
+</androidx.constraintlayout.widget.ConstraintLayout>

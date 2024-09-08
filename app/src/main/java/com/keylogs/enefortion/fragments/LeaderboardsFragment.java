@@ -7,8 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.keylogs.enefortion.R;
+import com.keylogs.enefortion.model.UserScore;
+import com.keylogs.enefortion.model.UserScoreRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,11 +63,29 @@ public class LeaderboardsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    private ListView leaderboardListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+
+        leaderboardListView = view.findViewById(R.id.leaderboardListView);
+        loadLeaderboard();
+
+        return view;
+    }
+    private void loadLeaderboard() {
+        UserScoreRepository userScoreRepository = new UserScoreRepository(getContext());
+        List<UserScore> topScores = userScoreRepository.getTopScores();
+        List<String> leaderboardEntries = new ArrayList<>();
+
+        for (UserScore userScore : topScores) {
+            leaderboardEntries.add(userScore.username + ": " + userScore.score);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_list_item_1, leaderboardEntries);
+        leaderboardListView.setAdapter(adapter);
     }
 }

@@ -14,6 +14,7 @@ android {
         versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -43,4 +44,13 @@ dependencies {
     implementation ("com.google.android.material:material:1.9.0")
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation ("androidx.room:room-runtime:2.5.0")
+    annotationProcessor ("androidx.room:room-compiler:2.5.0")
+    implementation ("androidx.room:room-ktx:2.5.0")
+    implementation("androidx.media3:media3-exoplayer:1.4.0")
+    implementation("androidx.media3:media3-exoplayer-dash:1.4.0")
+    implementation("androidx.media3:media3-ui:1.4.0")
+    implementation("androidx.media3:media3-exoplayer-hls:1.4.0")
+    implementation ("androidx.media3:media3-exoplayer:1.0.0")
+    implementation ("androidx.media3:media3-ui:1.0.0")
 }

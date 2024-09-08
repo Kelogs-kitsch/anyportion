@@ -3,21 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/marble"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardBackgroundColor="@color/marble">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@color/marble">
 
             <ImageView
                 android:id="@+id/imageView23"
@@ -49,7 +51,7 @@
                 app:srcCompat="@drawable/logonameimg" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
@@ -62,7 +64,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/cardView5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

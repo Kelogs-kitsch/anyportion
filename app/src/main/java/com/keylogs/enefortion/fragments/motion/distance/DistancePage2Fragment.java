@@ -1,5 +1,8 @@
 package com.keylogs.enefortion.fragments.motion.distance;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +15,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.keylogs.enefortion.R;
+import com.keylogs.enefortion.activity.investigatingmotion.DistanceActivity;
+import com.keylogs.enefortion.model.EnefortionDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +25,9 @@ import com.keylogs.enefortion.R;
  */
 public class DistancePage2Fragment extends Fragment {
 
+    private EnefortionDatabase dbHelper;
+    private SQLiteDatabase database;
+    private String loggedInUsername;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -68,36 +76,77 @@ public class DistancePage2Fragment extends Fragment {
 
         Button nextButton = view.findViewById(R.id.nextButton2);
         Button previousButton = view.findViewById(R.id.previousButton2);
-        ViewPager2 viewPager = getActivity().findViewById(R.id.main);
+
+        dbHelper = new EnefortionDatabase(requireContext());
+        database = dbHelper.getWritableDatabase();
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentItem = viewPager.getCurrentItem();
-                if (currentItem < 4) { // Check to avoid out of bounds
-                    viewPager.setCurrentItem(currentItem + 1);
-                } else {
-                    // Optionally handle the case when on the last page
-                    Toast.makeText(getActivity(), "You are on the last page", Toast.LENGTH_SHORT).show();
+                if (getActivity() instanceof DistanceActivity) {
+                    DistanceActivity activity = (DistanceActivity) getActivity();
+                    activity.showFragment(new DistancePage3Fragment());
+                }
+
+                if (loggedInUsername != null) {
+                    addProgressForUser(loggedInUsername);
                 }
             }
         });
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int currentItem = viewPager.getCurrentItem();
-                if (currentItem < 4) { // Check to avoid out of bounds
-                    viewPager.setCurrentItem(currentItem - 1);
-                } else {
-                    // Optionally handle the case when on the last page
-                    Toast.makeText(getActivity(), "You are on the last page", Toast.LENGTH_SHORT).show();
+                if (getActivity() instanceof DistanceActivity) {
+                    DistanceActivity activity = (DistanceActivity) getActivity();
+                    activity.showFragment(new DistancePage1Fragment());
                 }
             }
         });
         return view;
-
-
-
     }
+    private void addProgressForUser(String username) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Cursor cursor = null;
+                try {
+                    cursor = database.query(
+                            "UserProgress",
+                            new String[] { "progress" },
+                            "username = ?",
+                            new String[] { username },
+                            null,
+                            null,
+                            null
+                    );
 
+                    int progress = 1; // Default to 1 if no record is found
+                    int progressColumnIndex = cursor.getColumnIndex("progress");
+
+                    if (progressColumnIndex != -1 && cursor.moveToFirst()) {
+                        progress = cursor.getInt(progressColumnIndex) + 1;
+                    }
+
+                    ContentValues values = new ContentValues();
+                    values.put("username", username);
+                    values.put("progress", progress);
+                    database.replace("UserProgress", null, values);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                }
+
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(requireContext(), "Progress updated!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
+    }
 }

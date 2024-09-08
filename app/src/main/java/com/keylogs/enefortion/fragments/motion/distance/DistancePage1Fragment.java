@@ -1,32 +1,42 @@
 package com.keylogs.enefortion.fragments.motion.distance;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.VideoView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.media3.common.MediaItem;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.ui.PlayerView;
 
 import com.keylogs.enefortion.R;
+import com.keylogs.enefortion.activity.investigatingmotion.DistanceActivity;
+import com.keylogs.enefortion.model.EnefortionDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DistancePage1Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DistancePage1Fragment extends Fragment {
 
+    private PlayerView playerView;
+    private ExoPlayer exoPlayer;
+    private EnefortionDatabase dbHelper;
+    private SQLiteDatabase database;
+    private String loggedInUsername;
+    private VideoView videoView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -34,15 +44,6 @@ public class DistancePage1Fragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ScreenSlidePage.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DistancePage1Fragment newInstance(String param1, String param2) {
         DistancePage1Fragment fragment = new DistancePage1Fragment();
         Bundle args = new Bundle();
@@ -62,28 +63,121 @@ public class DistancePage1Fragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_distance_page1, container, false);
 
         Button nextButton = view.findViewById(R.id.nextButton);
+        VideoView videoView = view.findViewById(R.id.playerView);
 
-        ViewPager2 viewPager = getActivity().findViewById(R.id.main);
+        // Set up the video URI and play the video
+        Uri videoUri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.whatisphysics);
+        videoView.setVideoURI(videoUri);
+        videoView.start();
+//        playerView = view.findViewById(R.id.playerView);
+//        exoPlayer = new ExoPlayer.Builder(getContext()).build();
+//        playerView.setPlayer(exoPlayer);
+//
+//        Uri videoUri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.whatisphysics);
+//        MediaItem mediaItem = MediaItem.fromUri(videoUri);
+//        exoPlayer.setMediaItem(mediaItem);
+//        exoPlayer.prepare();
+//        exoPlayer.play();
+
+        dbHelper = new EnefortionDatabase(requireContext());
+        database = dbHelper.getWritableDatabase();
+
+        // Get the logged-in user's username (assuming it's stored in shared preferences)
+        SharedPreferences prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        loggedInUsername = prefs.getString("username", null);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentItem = viewPager.getCurrentItem();
-                if (currentItem < 4) { // Check to avoid out of bounds
-                    viewPager.setCurrentItem(currentItem + 1);
-                } else {
-                    // Optionally handle the case when on the last page
-                    Toast.makeText(getActivity(), "You are on the last page", Toast.LENGTH_SHORT).show();
+                if (getActivity() instanceof DistanceActivity) {
+                    DistanceActivity activity = (DistanceActivity) getActivity();
+
+                    // Create a new fragment instance
+                    DistancePage2Fragment newFragment = new DistancePage2Fragment();
+
+                    // Begin the fragment transaction
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    // Replace the current fragment with the new fragment
+                    fragmentTransaction.replace(R.id.distanceMain, newFragment);
+
+                    // Optionally, add the transaction to the back stack
+                    // fragmentTransaction.addToBackStack(null);
+
+                    // Commit the transaction
+                    fragmentTransaction.commit();
+                }
+
+                // Add progress for the logged-in user
+                if (loggedInUsername != null) {
+                    addProgressForUser(loggedInUsername);
                 }
             }
         });
 
+
         return view;
+    }
+
+    private void addProgressForUser(String username) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Cursor cursor = null;
+                try {
+                    cursor = database.query(
+                            "UserProgress",
+                            new String[] { "progress" },
+                            "username = ?",
+                            new String[] { username },
+                            null,
+                            null,
+                            null
+                    );
+
+                    int progress = 1; // Default to 1 if no record is found
+                    int progressColumnIndex = cursor.getColumnIndex("progress");
+
+                    if (progressColumnIndex != -1 && cursor.moveToFirst()) {
+                        progress = cursor.getInt(progressColumnIndex) + 1;
+                    }
+
+                    ContentValues values = new ContentValues();
+                    values.put("username", username);
+                    values.put("progress", progress);
+                    database.replace("UserProgress", null, values);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                }
+
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(requireContext(), "Progress updated!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (exoPlayer != null) {
+            exoPlayer.release();
+        }
+        if (database != null) {
+            database.close();
+        }
     }
 }
